@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales App — Design System</title>
+  <meta name="description"
+    content="Design token showcase for the Sales App — colors, typography, and semantic roles from the Figma design system." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --font: 'Figtree', sans-serif;
+      --bg: #0d0f14;
+      --surface: #13161e;
+      --surface-2: #1b1f2b;
+      --border: rgba(255, 255, 255, 0.07);
+      --text-primary: #f0f2f8;
+      --text-secondary: #8a90a8;
+      --text-muted: #4a5068;
+      --radius: 14px;
+      --radius-sm: 8px;
+      --transition: 0.2s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-primary);
+      background: var(--surface);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      /* Prevent weird overflows */
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    /* ─── Scrollbar ──────────────────────────────────── */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #2a2f45;
+      border-radius: 5px;
+      border: 2px solid var(--bg);
+    }
+
+    .wrapper {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── Navigation ─────────────────────────────────── */
+    .top-nav {
+      background: rgba(13, 15, 20, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .top-nav .wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link.active {
+      color: #79BAFF;
+    }
+
+    /* ─── Hero Header ────────────────────────────────── */
+    header {
+      padding: 100px 0 80px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% -20%, rgba(24, 107, 204, 0.15), transparent 60%);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(24, 107, 204, 0.1);
+      border: 1px solid rgba(24, 107, 204, 0.2);
+      color: #79BAFF;
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-size: clamp(40px, 6vw, 68px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      background: linear-gradient(to bottom, #ffffff 40%, rgba(255, 255, 255, 0.6));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+
+    header p {
+      font-size: 19px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.6;
+      margin-top: 0;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+
+    .meta-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* ─── Nav Tabs ───────────────────────────────────── */
+    .nav-tabs {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: -1px;
+      background: rgba(13, 15, 20, 0.85);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+    }
+
+    .nav-tabs .wrapper {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: none;
+      border: 1px solid transparent;
+      padding: 8px 18px;
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 100px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+    }
+
+    .tab-btn.active {
+      background: var(--surface-2);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: #79BAFF;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ─── Section Header ─────────────────────────────── */
+    .section-title {
+      padding: 80px 0 40px;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: var(--text-secondary);
+      font-size: 15px;
+    }
+
+    /* ─── Color Cards ────────────────────────────────── */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .color-card {
+      background: var(--surface-2);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: var(--transition);
+    }
+
+    .color-card:hover {
+      border-color: rgba(24, 107, 204, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .color-preview {
+      height: 120px;
+      border-radius: var(--radius-sm);
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .color-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .color-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .color-hex {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+      align-self: flex-start;
+      margin-top: 4px;
+    }
+
+    /* ─── Primitive Palette ──────────────────────────── */
+    .primitive-group {
+      margin-bottom: 60px;
+    }
+
+    .group-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .group-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .primitive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+    }
+
+    .p-swatch {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .p-color {
+      height: 60px;
+      border-radius: 6px;
+    }
+
+    .p-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+
+    .p-hex {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    /* ─── Typography ─────────────────────────────────── */
+    .type-spec {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 16px 24px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .type-row:hover {
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .type-token {
+      font-size: 13px;
+      font-weight: 700;
+      color: #79BAFF;
+      font-family: monospace;
+    }
+
+    .type-spec {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .type-weight {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* ─── Spacing / Radius ──────────────────────────── */
+    .spacing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .space-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .spacing-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .spacing-val {
+      width: 60px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .spacing-bar-wrap {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .spacing-bar {
+      height: 100%;
+      background: #79BAFF;
+      border-radius: 4px;
+    }
+
+    .spacing-token {
+      width: 100px;
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .space-card-preview {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      height: 100px;
+    }
+
+    .space-card-inner {
+      background: #79BAFF;
+      box-shadow: 0 0 20px rgba(121, 186, 255, 0.2);
+    }
+
+    .space-card-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .space-card-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: #79BAFF;
+    }
+
+    .space-card-unit {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ─── Opacity ───────────────────────────────────── */
+    .opacity-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .opacity-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .opacity-card-box {
+      width: 48px;
+      height: 48px;
+      background: #111;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .opacity-card-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #79BAFF;
+    }
+
+    .opacity-card-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .opacity-card-name {
+      font-size: 12px;
+      font-weight: 700;
+      font-family: monospace;
+      color: var(--text-secondary);
+    }
+
+    .opacity-card-val {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="top-nav">
+    <div class="wrapper">
+      <div style="font-weight: 800; letter-spacing: -0.04em; font-size: 18px;">
+        Sales App <span style="color: var(--text-secondary); font-weight: 400;">Design System</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="design_system.html" class="nav-link active">Foundation</a>
+        <a href="component_showcase.html" class="nav-link">Components</a>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <div class="wrapper">
+      <div class="badge">
+        <span style="opacity: 0.7;">◌</span>
+        <span>Version 1.0.0</span>
+      </div>
+      <h1>Foundation</h1>
+      <p>The core primitives and semantic tokens that define the visual language of the Sales Application. Built from
+        Figma Global Styles.</p>
+
+      <div class="header-meta">
+        <div class="meta-item">
+          <span class="meta-label">Primary Font</span>
+          <span class="meta-value">Figtree</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Colors</span>
+          <span class="meta-value">8 Families, 120+ Swatches</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Unit</span>
+          <span class="meta-value">dp / logical pixels</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-tabs">
+    <div class="wrapper">
+      <button class="tab-btn active" id="tab-primitives" onclick="scrollToSection('primitives')">Primitives</button>
+      <button class="tab-btn" id="tab-semantic" onclick="scrollToSection('semantic')">Semantic Colors</button>
+      <button class="tab-btn" id="tab-typography" onclick="scrollToSection('typography')">Typography</button>
+      <button class="tab-btn" id="tab-spacing" onclick="scrollToSection('spacing')">Spacing</button>
+      <button class="tab-btn" id="tab-opacity" onclick="scrollToSection('opacity')">Opacity</button>
+    </div>
+  </div>
+
+  <main class="wrapper">
+    <!-- Primitives Section -->
+    <section id="primitives">
+      <div class="section-title">
+        <h2>Global Primitives</h2>
+        <p>The absolute foundation. Raw hex values organized into calibrated scales.</p>
+      </div>
+
+      <div id="primitive-container">
+        <!-- Will be populated by JS -->
+      </div>
+    </section>
+
+    <!-- Semantic Section -->
+    <section id="semantic" style="padding-top: 100px; margin-top: -100px;">
+      <div class="section-title">
+        <h2>Semantic Colors</h2>
+        <p>Purpose-driven tokens mapped to primitives. Use these in components for theme support.</p>
+      </div>
+
+      <div class="color-grid">
+        <!-- Surface -->
+        <div class="color-card">
+          <div class="color-preview" style="background: #186BCC;"></div>
+          <div class="color-info">
+            <span class="color-name">surfacePrimaryDefault</span>
+            <span class="color-hex">#186BCC</span>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">Main action background, focus
+              states.</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-preview" style="background: #E6F0FF;"></div>
+          <div class="color-info">
+            <span class="color-name">surfacePrimaryLight</span>
+            <span class="color-hex">#E6F0FF</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-preview" style="background: #F3F3F3;"></div>
+          <div class="color-info">
+            <span class="color-name">surfaceGraySecondary</span>
+            <span class="color-hex">#F3F3F3</span>
+          </div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="color-card">
+          <div class="color-preview" style="background: #E50000;"></div>
+          <div class="color-info">
+            <span class="color-name">surfaceErrorDefault</span>
+            <span class="color-hex">#E50000</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-preview" style="background: #FFF6D3;"></div>
+          <div class="color-info">
+            <span class="color-name">surfaceWarningLight</span>
+            <span class="color-hex">#FFF6D3</span>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-preview" style="background: #EFFFFC;"></div>
+          <div class="color-info">
+            <span class="color-name">surfaceSuccessLight</span>
+            <span class="color-hex">#EFFFFC</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section id="typography" style="padding-top: 100px; margin-top: -100px;">
+      <div class="section-title">
+        <h2>Typography</h2>
+        <p>The type system, featuring Figtree. Scaled for readability and hierarchy.</p>
+      </div>
+
+      <div class="primitive-group">
+        <div class="group-label">Headings</div>
+        <div class="type-spec">
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Preview</th>
+                <th>Size / LineHeight</th>
+                <th>Weight</th>
+              </tr>
+            </thead>
+            <tbody id="heading-table-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="primitive-group">
+        <div class="group-label">Body Text</div>
+        <div class="type-spec">
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Preview</th>
+                <th>Size / LineHeight</th>
+                <th>Weight</th>
+              </tr>
+            </thead>
+            <tbody id="body-table-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing Section -->
+    <section id="spacing" style="padding-top: 100px; margin-top: -100px;">
+      <div class="section-title">
+        <h2>Spacing & Layout</h2>
+        <p>Defined steps for padding, margins, and gaps. Based on a 4dp grid.</p>
+      </div>
+
+      <div class="spacing-grid">
+        <div class="space-card">
+          <div class="group-label">Spacing Scale</div>
+          <div id="spacing-scale"></div>
+        </div>
+        <div class="space-card">
+          <div class="group-label">Corner Radius</div>
+          <div id="radius-scale" class="primitive-grid" style="grid-template-columns: repeat(2, 1fr);"></div>
+        </div>
+        <div class="space-card">
+          <div class="group-label">Border Width</div>
+          <div id="width-scale" class="primitive-grid" style="grid-template-columns: repeat(2, 1fr);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opacity Section -->
+    <section id="opacity" style="padding-top: 100px; margin-top: -100px;">
+      <div class="section-title">
+        <h2>Opacity</h2>
+        <p>Transparency levels for overlays, scrims, and state modifiers.</p>
+      </div>
+      <div id="opacity-scale" class="opacity-grid"></div>
+    </section>
+
+    <footer style="padding: 100px 0 60px; text-align: center; color: var(--text-muted); font-size: 13px;">
+      Sales App Design System — Generated from Figma Primitives 
+    </footer>
+  </main>
+
+  <script>
+    /* ══════════════════════════════════════════════════════════
+       UTILITIES
+    ══════════════════════════════════════════════════════════ */
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function weightLabel(w) {
+      if (w === 400) return 'Regular';
+      if (w === 500) return 'Medium';
+      if (w === 600) return 'Semibold';
+      if (w === 700) return 'Bold';
+      return w;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       DATA — PRIMITIVE COLORS
+    ══════════════════════════════════════════════════════════ */
+    const PRIMITIVES = {
+      'Primary / Blue': [
+        { name: 'blue100', hex: '#F4F9FF' }, { name: 'blue200', hex: '#E8F3FF' }, { name: 'blue300', hex: '#DDEEFF' },
+        { name: 'blue400', hex: '#C4E2FF' }, { name: 'blue500', hex: '#93C9FE' }, { name: 'blue600', hex: '#6AB5FF' },
+        { name: 'blue800', hex: '#4D92DE' }, { name: 'blue900', hex: '#186BCC' }, { name: 'blue1000', hex: '#1D57AA' },
+        { name: 'blue1100', hex: '#074099' }, { name: 'blue1300', hex: '#012C7F' }, { name: 'blue1600', hex: '#00063D' },
+      ],
+      'Neutral / Gray': [
+        { name: 'neutral100', hex: '#F3F3F3' }, { name: 'neutral200', hex: '#EEEEEE' }, { name: 'neutral300', hex: '#E2E2E2' },
+        { name: 'neutral400', hex: '#C6C4C4' }, { name: 'neutral600', hex: '#969696' }, { name: 'neutral800', hex: '#585858' },
+        { name: 'neutral1000', hex: '#333333' },
+      ],
+      'Success / Green': [
+        { name: 'green100', hex: '#EFFFFC' }, { name: 'green200', hex: '#E6FFFF' }, { name: 'green400', hex: '#BBF4F4' },
+        { name: 'green800', hex: '#4EA893' }, { name: 'green1200', hex: '#03433B' },
+      ],
+      'Warning / Yellow': [
+        { name: 'yellow100', hex: '#FFFBEB' }, { name: 'yellow200', hex: '#FFF6D3' }, { name: 'yellow800', hex: '#FFFFD325' },
+        { name: 'yellow1400', hex: '#69551C' },
+      ],
+      'Error / Red': [
+        { name: 'red100', hex: '#FFEDEE' }, { name: 'red200', hex: '#FFD3D7' }, { name: 'red400', hex: '#E50000' },
+        { name: 'red500', hex: '#BE0000' },
+      ]
+    };
+
+    /* ══════════════════════════════════════════════════════════
+       DATA — TYPOGRAPHY
+    ══════════════════════════════════════════════════════════ */
+    const HEADINGS = [
+      { token: 'h1Bold', label: 'Heading 1', size: 40, lh: 48, weight: 700 },
+      { token: 'h2Bold', label: 'Heading 2', size: 32, lh: 38, weight: 700 },
+      { token: 'h3Bold', label: 'Heading 3', size: 24, lh: 34, weight: 700 },
+      { token: 'h4Bold', label: 'Heading 4', size: 20, lh: 28, weight: 700 },
+    ];
+    const BODIES = [
+      { token: 'b1Semibold', label: 'Body 1', size: 20, lh: 28, weight: 600 },
+      { token: 'b3Regular', label: 'Body 3 (Base)', size: 16, lh: 22, weight: 400 },
+      { token: 'b4Medium', label: 'Body 4 (Small)', size: 14, lh: 20, weight: 500 },
+      { token: 'b5Semibold', label: 'Body 5 (Tiny)', size: 12, lh: 16, weight: 600 },
+    ];
+
+    /* ══════════════════════════════════════════════════════════
+       DATA — SPACING & RADIUS
+    ══════════════════════════════════════════════════════════ */
+    const SPACING_PRIMITIVES = [
+      { token: 'spacing02', value: 2 }, { token: 'spacing04', value: 4 }, { token: 'spacing08', value: 8 },
+      { token: 'spacing12', value: 12 }, { token: 'spacing16', value: 16 }, { token: 'spacing24', value: 24 },
+      { token: 'spacing32', value: 32 }, { token: 'spacing40', value: 40 },
+    ];
+    const RADIUS_PRIMITIVES = [
+      { token: 'radius04', value: 4, desc: 'Extra Small' }, { token: 'radius08', value: 8, desc: 'Standard Card' },
+      { token: 'radius12', value: 12, desc: 'Large Container' }, { token: 'radiusFull', value: 9999, desc: 'Pill/Capsule' },
+    ];
+    const WIDTH_PRIMITIVES = [
+      { token: 'width05', value: 0.5, desc: 'Hairline' }, { token: 'width01', value: 1.0, desc: 'Standard' },
+      { token: 'width02', value: 2.0, desc: 'Thick' },
+    ];
+
+    /* ══════════════════════════════════════════════════════════
+       RENDER — PRIMITIVE GROUPS
+    ══════════════════════════════════════════════════════════ */
+    const primContainer = document.getElementById('primitive-container');
+    Object.keys(PRIMITIVES).forEach(family => {
+      const groupEl = document.createElement('div');
+      groupEl.className = 'primitive-group';
+      groupEl.innerHTML = `<div class="group-label">${family}</div>`;
+      const gridEl = document.createElement('div');
+      gridEl.className = 'primitive-grid';
+
+      PRIMITIVES[family].forEach(p => {
+        const swatch = document.createElement('div');
+        swatch.className = 'p-swatch';
+        swatch.innerHTML = `
+          <div class="p-color" style="background: ${p.hex}"></div>
+          <div class="p-label">${p.name}</div>
+          <div class="p-hex">${p.hex}</div>`;
+        gridEl.appendChild(swatch);
+      });
+      groupEl.appendChild(gridEl);
+      primContainer.appendChild(groupEl);
+    });
+
+    /* ══════════════════════════════════════════════════════════
+       RENDER — TYPOGRAPHY TABLES
+    ══════════════════════════════════════════════════════════ */
+    function renderTypeTable(tokens, tbodyId) {
+      const tbody = document.getElementById(tbodyId);
+      tokens.forEach(t => {
+        const tr = document.createElement('tr');
+        tr.className = 'type-row';
+        tr.innerHTML = `
+      <td><span class="type-token">${t.token}</span></td>
+      <td>
+        <div class="type-preview" style="font-family:'Figtree',sans-serif; font-size:${Math.min(t.size, 20)}px; font-weight:${t.weight}; line-height:${t.lh / t.size};">
+          ${t.label} ${weightLabel(t.weight)} — The quick brown fox
+        </div>
+      </td>
+      <td><span class="type-spec">${t.size}px / ${t.lh}px</span></td>
+      <td><span class="type-weight">${t.weight} — ${weightLabel(t.weight)}</span></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    renderTypeTable(HEADINGS, 'heading-table-body');
+    renderTypeTable(BODIES, 'body-table-body');
+
+    /* ══════════════════════════════════════════════════════════
+       RENDER — SPACING PRIMITIVE SCALE
+    ══════════════════════════════════════════════════════════ */
+    const maxSpacing = Math.max(...SPACING_PRIMITIVES.map(s => s.value));
+    const scaleContainer = document.getElementById('spacing-scale');
+    SPACING_PRIMITIVES.forEach(s => {
+      const barWidth = s.value === 0 ? 0 : Math.max(4, (s.value / maxSpacing) * 100);
+      const row = document.createElement('div');
+      row.className = 'spacing-row';
+      row.innerHTML = `
+        <span class="spacing-token">${s.token}</span>
+        <div class="spacing-bar-wrap">
+          <div class="spacing-bar" style="width:${barWidth}%"></div>
+        </div>
+        <span class="spacing-val">${s.value}dp</span>`;
+      scaleContainer.appendChild(row);
+    });
+
+    /* ══════════════════════════════════════════════════════════
+       RENDER — RADIUS PRIMITIVE CARDS
+    ══════════════════════════════════════════════════════════ */
+    function renderRadiusCards(tokens, containerId) {
+      const container = document.getElementById(containerId);
+      tokens.forEach(t => {
+        const displayVal = t.value >= 9999 ? '∞' : t.value;
+        const radiusPreview = t.value >= 9999 ? '9999' : t.value;
+        const card = document.createElement('div');
+        card.className = 'space-card';
+        card.innerHTML = `
+          <div class="space-card-preview" style="height:80px; padding:0;">
+            <div class="space-card-inner" style="width:48px; height:48px; border-radius:${radiusPreview}px; padding:0;"></div>
+          </div>
+          <div class="space-card-name">${t.token}</div>
+          <div class="space-card-val">${displayVal}<span class="space-card-unit"> dp</span></div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">${t.desc}</div>`;
+        container.appendChild(card);
+      });
+    }
+
+    renderRadiusCards(RADIUS_PRIMITIVES, 'radius-scale');
+
+    /* ══════════════════════════════════════════════════════════
+       RENDER — WIDTH PRIMITIVE CARDS
+    ══════════════════════════════════════════════════════════ */
+    function renderWidthCards(tokens, containerId) {
+      const container = document.getElementById(containerId);
+      tokens.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'space-card';
+        card.innerHTML = `
+          <div class="space-card-preview" style="height:80px; padding:0;">
+            <div style="width:60%; height:${t.value}px; background:#6AB5FF; border-radius:1px;"></div>
+          </div>
+          <div class="space-card-name">${t.token}</div>
+          <div class="space-card-val">${t.value}<span class="space-card-unit"> dp</span></div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">${t.desc}</div>`;
+        container.appendChild(card);
+      });
+    }
+
+    renderWidthCards(WIDTH_PRIMITIVES, 'width-scale');
+
+    /* ══════════════════════════════════════════════════════════
+       DATA — OPACITY
+    ══════════════════════════════════════════════════════════ */
+    const OPACITY_PRIMITIVES = [
+      { token: 'opacity0', pct: 0, val: 0.00 },
+      { token: 'opacity1', pct: 9, val: 0.09 },
+      { token: 'opacity2', pct: 12, val: 0.12 },
+      { token: 'opacity3', pct: 18, val: 0.18 },
+      { token: 'opacity4', pct: 24, val: 0.24 },
+      { token: 'opacity5', pct: 32, val: 0.32 },
+      { token: 'opacity6', pct: 48, val: 0.48 },
+      { token: 'opacity7', pct: 56, val: 0.56 },
+      { token: 'opacity8', pct: 64, val: 0.64 },
+      { token: 'opacity9', pct: 72, val: 0.72 },
+      { token: 'opacity10', pct: 80, val: 0.80 },
+      { token: 'opacity11', pct: 88, val: 0.88 },
+      { token: 'opacity12', pct: 100, val: 1.00 },
+    ];
+
+    /* ══════════════════════════════════════════════════════════
+       RENDER — OPACITY PRIMITIVE CARDS
+    ══════════════════════════════════════════════════════════ */
+    function renderOpacityCards(tokens, containerId) {
+      const container = document.getElementById(containerId);
+      tokens.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'opacity-card';
+        card.innerHTML = `
+      <div class="opacity-card-box">
+        <div class="opacity-card-fill" style="opacity:${t.val}"></div>
+      </div>
+      <div class="opacity-card-info">
+        <div class="opacity-card-name">${t.token}</div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:8px;">
+          <div class="opacity-card-val">${t.pct}%</div>
+        </div>
+      </div>`;
+        container.appendChild(card);
+      });
+    }
+
+    renderOpacityCards(OPACITY_PRIMITIVES, 'opacity-scale');
+
+    /* ══════════════════════════════════════════════════════════
+       NAV TAB ACTIVE STATE ON SCROLL
+    ══════════════════════════════════════════════════════════ */
+    const sections = ['primitives', 'semantic', 'typography', 'spacing', 'opacity'];
+    const tabs = {
+      primitives: 'tab-primitives',
+      semantic: 'tab-semantic',
+      typography: 'tab-typography',
+      spacing: 'tab-spacing',
+      opacity: 'tab-opacity',
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          const tab = document.getElementById(tabs[entry.target.id]);
+          if (tab) tab.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  </script>
+</body>
+
+</html>
