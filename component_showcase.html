@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sales App — Component Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ─── Design Tokens (Synced with Foundation) ──────── */
+        :root {
+            /* Colors - Primitives */
+            --blue-1100: #186BCC;
+            --blue-1300: #004699;
+            --blue-200: #E6F0FF;
+            --neutral-1000: #333333;
+            --neutral-700: #717171;
+            --neutral-400: #C2C2C2;
+            --neutral-100: #F3F3F3;
+            --red-400: #E50000;
+            --white: #FFFFFF;
+
+            /* Semantic Mappings */
+            --surface-primary: var(--blue-1100);
+            --surface-primary-hover: var(--blue-1300);
+            --text-primary-btn: var(--blue-1100);
+            --border-primary: var(--blue-1100);
+            --border-gray: var(--neutral-700);
+            --border-disabled: var(--neutral-400);
+            --text-disabled: var(--neutral-400);
+            --text-error: var(--red-400);
+            --border-error: var(--red-400);
+
+            /* Spacing */
+            --space-08: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-24: 24px;
+
+            /* Radius */
+            --radius-08: 8px;
+
+            /* Transitions */
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Layout */
+            --bg: #0d1117;
+            --surface: #161b22;
+            --border: rgba(255, 255, 255, 0.1);
+            --text-main: #f0f6fc;
+            --text-secondary: #8b949e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding-bottom: 100px;
+        }
+
+        .wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ─── Navigation ─────────────────────────────────── */
+        .top-nav {
+            background: rgba(13, 17, 23, 0.82);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-nav .wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+        }
+
+        .nav-link.active {
+            color: #58a6ff;
+        }
+
+        /* ─── Hero ───────────────────────────────────────── */
+        header {
+            padding: 80px 0 60px;
+            border-bottom: 1px solid var(--border);
+            background: radial-gradient(circle at 50% -20%, rgba(24, 107, 204, 0.1), transparent 70%);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(24, 107, 204, 0.15);
+            border: 1px solid rgba(24, 107, 204, 0.3);
+            border-radius: 100px;
+            color: #58a6ff;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+        }
+
+        /* ─── Section ────────────────────────────────────── */
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-size: 15px;
+        }
+
+        /* ─── Controls ───────────────────────────────────── */
+        .controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .control-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* ─── Button Component Matrix ────────────────────── */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .variant-group {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .variant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .variant-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .variant-display {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        /* ─── Actual Button Implementation (MIMIC DART) ─── */
+        .app-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: var(--radius-08);
+            transition: all var(--transition);
+            user-select: none;
+            white-space: nowrap;
+            border: 1px solid transparent;
+            gap: var(--space-08);
+        }
+
+        /* Sizes */
+        .app-button.large {
+            height: 48px;
+            padding: 0 var(--space-24);
+            font-size: 16px;
+        }
+
+        .app-button.medium {
+            height: 40px;
+            padding: 0 var(--space-16);
+            font-size: 14px;
+        }
+
+        .app-button.small {
+            height: 32px;
+            padding: 0 var(--space-12);
+            font-size: 12px;
+        }
+
+        /* Icon-Only Specifics */
+        .app-button.icon-only {
+            padding: 0;
+            width: unset;
+            /* will be set by JS or specific class if needed */
+        }
+
+        .app-button.large.icon-only {
+            width: 48px;
+        }
+
+        .app-button.medium.icon-only {
+            width: 40px;
+        }
+
+        .app-button.small.icon-only {
+            width: 32px;
+        }
+
+        /* Primary Variant */
+        .app-button.primary {
+            background-color: var(--surface-primary);
+            color: var(--white);
+        }
+
+        .app-button.primary.pressed {
+            background-color: var(--blue-1300);
+            /* surfacePrimaryDark */
+        }
+
+        /* Secondary Variant */
+        .app-button.secondary {
+            background-color: transparent;
+            border-color: var(--border-primary);
+            color: var(--text-primary-btn);
+        }
+
+        .app-button.secondary.pressed {
+            background-color: rgba(24, 107, 204, 0.12);
+            /* surfacePrimaryLight with opacity */
+        }
+
+        /* Neutral Variant */
+        .app-button.neutral {
+            background-color: transparent;
+            border-color: var(--border-gray);
+            color: #e6edf3;
+        }
+
+        .app-button.neutral.pressed {
+            background-color: var(--neutral-100);
+        }
+
+        /* Destructive Variant */
+        .app-button.destructive {
+            background-color: #FEE2E2;
+            /* red100 equivalent */
+            color: var(--text-error);
+            border: none;
+        }
+
+        .app-button.destructive.pressed {
+            background-color: #FECACA;
+        }
+
+        /* Link Variant */
+        .app-button.link {
+            background-color: transparent;
+            color: var(--text-primary-btn);
+            text-decoration: underline;
+        }
+
+        .app-button.link.pressed {
+            background-color: rgba(24, 107, 204, 0.12);
+        }
+
+        /* States */
+        .app-button.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            background-color: transparent;
+            border-color: var(--border-disabled) !important;
+            color: var(--text-disabled) !important;
+            text-decoration: none !important;
+        }
+
+        .app-button.primary.disabled {
+            background-color: var(--neutral-100);
+            opacity: 0.15;
+        }
+
+        /* Loading Spinner Mock */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        .app-button.loading .spinner {
+            display: block;
+        }
+
+        .app-button.loading .icon,
+        .app-button.loading span {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ─── Code Snippets ──────────────────────────────── */
+        .code-block {
+            background: #010409;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            color: #d1d5db;
+            margin-top: 16px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        .token-tag {
+            font-size: 10px;
+            font-weight: 700;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="top-nav">
+        <div class="wrapper">
+            <div style="font-weight: 700; letter-spacing: -0.02em;">Sales App <span
+                    style="color: var(--text-secondary)">DS</span></div>
+            <div class="nav-links">
+                <a href="design_system.html" class="nav-link">Foundation</a>
+                <a href="component_showcase.html" class="nav-link active">Components</a>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div class="wrapper">
+            <div class="badge">Sales App Components</div>
+            <h1>Component Showcase</h1>
+            <p>Interactive verification of Flutter components implemented via design tokens. All spacing, colors, and
+                types
+                are synced with the foundation primitives.</p>
+        </div>
+    </header>
+
+    <div class="wrapper">
+        <section id="buttons">
+            <div class="section-header">
+                <h2 class="section-title">Button</h2>
+                <p class="section-desc">The primary action component supporting multiple variants, sizes, and states.
+                </p>
+            </div>
+
+            <div class="controls">
+                <div class="control-item">
+                    <input type="checkbox" id="toggle-disabled" onchange="updateStates()">
+                    <label for="toggle-disabled">Show Disabled State</label>
+                </div>
+                <div class="control-item">
+                    <input type="checkbox" id="toggle-pressed" onchange="updateStates()">
+                    <label for="toggle-pressed">Show Pressed State</label>
+                </div>
+                <div class="control-item">
+                    <input type="checkbox" id="toggle-loading" onchange="updateStates()">
+                    <label for="toggle-loading">Show Loading State</label>
+                </div>
+            </div>
+
+            <div class="component-grid">
+                <!-- Primary -->
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <span class="variant-name">Primary</span>
+                        <span class="token-tag">surfacePrimaryDefault</span>
+                    </div>
+                    <div class="variant-display">
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button primary large">
+                                <div class="spinner"></div><span>Large Primary</span>
+                            </button>
+                            <button class="app-button primary large icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button primary medium">
+                                <div class="spinner"></div><span>Medium Primary</span>
+                            </button>
+                            <button class="app-button primary medium icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button primary small">
+                                <div class="spinner"></div><span>Small Primary</span>
+                            </button>
+                            <button class="app-button primary small icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.primary</div>
+                </div>
+
+                <!-- Secondary -->
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <span class="variant-name">Secondary</span>
+                        <span class="token-tag">borderPrimaryDefault</span>
+                    </div>
+                    <div class="variant-display">
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button secondary large">
+                                <div class="spinner"></div><span>Large Secondary</span>
+                            </button>
+                            <button class="app-button secondary large icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button secondary medium">
+                                <div class="spinner"></div><span>Medium Secondary</span>
+                            </button>
+                            <button class="app-button secondary medium icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button secondary small">
+                                <div class="spinner"></div><span>Small Secondary</span>
+                            </button>
+                            <button class="app-button secondary small icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.secondary</div>
+                </div>
+
+                <!-- Neutral -->
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <span class="variant-name">Neutral</span>
+                        <span class="token-tag">borderGraySecondary</span>
+                    </div>
+                    <div class="variant-display">
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button neutral large">
+                                <div class="spinner"></div><span>Large Neutral</span>
+                            </button>
+                            <button class="app-button neutral large icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button neutral medium">
+                                <div class="spinner"></div><span>Medium Neutral</span>
+                            </button>
+                            <button class="app-button neutral medium icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button neutral small">
+                                <div class="spinner"></div><span>Small Neutral</span>
+                            </button>
+                            <button class="app-button neutral small icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.neutral</div>
+                </div>
+
+                <!-- Destructive -->
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <span class="variant-name">Destructive</span>
+                        <span class="token-tag">surfaceErrorLight</span>
+                    </div>
+                    <div class="variant-display">
+                        <button class="app-button destructive large">
+                            <div class="spinner"></div><span>Large Destructive</span>
+                        </button>
+                        <button class="app-button destructive medium">
+                            <div class="spinner"></div><span>Medium Destructive</span>
+                        </button>
+                        <button class="app-button destructive small">
+                            <div class="spinner"></div><span>Small Destructive</span>
+                        </button>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.destructive</div>
+                </div>
+
+                <!-- Link -->
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <span class="variant-name">Link</span>
+                        <span class="token-tag">textPrimaryDefault</span>
+                    </div>
+                    <div class="variant-display">
+                        <button class="app-button link large">
+                            <div class="spinner"></div><span>Large Link</span>
+                        </button>
+                        <button class="app-button link medium">
+                            <div class="spinner"></div><span>Medium Link</span>
+                        </button>
+                        <button class="app-button link small">
+                            <div class="spinner"></div><span>Small Link</span>
+                        </button>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.link</div>
+                </div>
+            </div>
+    </div>
+    </section>
+    </div>
+
+    <script>
+        function updateStates() {
+            const isDisabled = document.getElementById('toggle-disabled').checked;
+            const isPressed = document.getElementById('toggle-pressed').checked;
+            const isLoading = document.getElementById('toggle-loading').checked;
+
+            const buttons = document.querySelectorAll('.app-button');
+            buttons.forEach(btn => {
+                if (isDisabled) btn.classList.add('disabled');
+                else btn.classList.remove('disabled');
+
+                if (isPressed) btn.classList.add('pressed');
+                else btn.classList.remove('pressed');
+
+                if (isLoading) btn.classList.add('loading');
+                else btn.classList.remove('loading');
+            });
+        }
+    </script>
+</body>
+
+</html>
