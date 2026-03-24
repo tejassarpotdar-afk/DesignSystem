@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales App — Design System Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --primary: #58a6ff;
+            --text-main: #f0f6fc;
+            --text-sec: #8b949e;
+            --border: rgba(255,255,255,0.1);
+        }
+        body {
+            font-family: 'Figtree', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #fff, #58a6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            color: var(--text-sec);
+            margin-bottom: 48px;
+            font-size: 18px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+        }
+        .icon {
+            font-size: 32px;
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--primary);
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-sec);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Design System</h1>
+        <p>Choose a module to explore the foundation and components.</p>
+        <div class="grid">
+            <a href="design_system.html" class="card">
+                <div class="icon">⬢</div>
+                <div class="card-title">Foundation</div>
+                <div class="card-desc">Colors, Typography, Spacing, and Global Primitives.</div>
+            </a>
+            <a href="component_showcase.html" class="card">
+                <div class="icon">❖</div>
+                <div class="card-title">Components</div>
+                <div class="card-desc">Interactive Flutter component library and states.</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
