@@ -108,7 +108,7 @@ class _AppTextFieldState extends State<AppTextField> {
               borderRadius: BorderRadius.circular(AppRadius.radius08),
               border: Border.all(
                 color: _getBorderColor(hasError, _isFocused, isDisabled),
-                width: _isFocused ? AppBorderWidth.width02 : AppBorderWidth.width01,
+                width: AppBorderWidth.width01,
               ),
             ),
             child: Row(
@@ -193,8 +193,8 @@ class _AppTextFieldState extends State<AppTextField> {
   Color _getBorderColor(bool hasError, bool isFocused, bool isDisabled) {
     if (isDisabled) return AppSemanticColors.borderGrayDisabled;
     if (hasError) return AppSemanticColors.borderErrorDefault;
-    if (isFocused) return AppSemanticColors.borderPrimaryDefault;
-    return AppSemanticColors.borderGraySecondary;
+    if (isFocused) return AppSemanticColors.borderGraySecondary;
+    return AppSemanticColors.borderGrayDisabled;
   }
 
   Color _getIconColor(bool hasError, bool isFocused, bool isDisabled) {
