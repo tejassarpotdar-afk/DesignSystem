@@ -5,6 +5,7 @@ import '../Foundation/app_spacing.dart';
 import '../Foundation/app_radius.dart';
 import '../Foundation/app_typography.dart';
 import '../Foundation/app_border_width.dart';
+import '../Foundation/app_opacity.dart';
 
 enum AppButtonVariant {
   primary,
@@ -152,7 +153,7 @@ class _AppButtonState extends State<AppButton> {
   Color _getBackgroundColor(bool isDisabled, bool isPressed) {
     if (isDisabled) {
       if (widget.variant == AppButtonVariant.primary) {
-        return AppSemanticColors.surfacePrimaryLight.withOpacity(0.4);
+        return AppSemanticColors.surfacePrimaryLight.withOpacity(AppOpacity.opacity4);
       }
       return Colors.transparent;
     }
@@ -163,11 +164,11 @@ class _AppButtonState extends State<AppButton> {
           return AppSemanticColors.surfacePrimaryDark;
         case AppButtonVariant.secondary:
         case AppButtonVariant.link:
-          return AppSemanticColors.surfacePrimaryLight.withOpacity(0.5);
+          return AppSemanticColors.surfacePrimaryLight.withOpacity(AppOpacity.opacity4);
         case AppButtonVariant.neutral:
           return AppSemanticColors.surfaceGraySecondary;
         case AppButtonVariant.destructive:
-          return AppSemanticColors.surfaceErrorLight.withOpacity(0.8);
+          return AppSemanticColors.surfaceErrorLight.withOpacity(AppOpacity.opacity4);
       }
     }
 
