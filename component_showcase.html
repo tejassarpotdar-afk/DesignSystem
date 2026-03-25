@@ -15,11 +15,14 @@
             /* Theme Variables - Default (Dark) */
             --bg: #0d1117;
             --surface: #161b22;
-            --surface-2: #21262d;
-            --border: rgba(255, 255, 255, 0.1);
             --text-main: #f0f6fc;
             --text-secondary: #8b949e;
             --nav-bg: rgba(13, 17, 23, 0.82);
+            --nav-active: #79BAFF;
+            --tab-active-text: #6AB5FF;
+            --tab-active-bg: rgba(24, 107, 204, 0.14);
+            --tab-active-border: rgba(24, 107, 204, 0.35);
+            --surface-2: #1b1f2b;
 
             /* Colors - Primitives (Constant) */
             --blue-1100: #186BCC;
@@ -63,6 +66,10 @@
             --text-main: #1f2328;
             --text-secondary: #656d76;
             --nav-bg: rgba(255, 255, 255, 0.82);
+            --nav-active: #074099;
+            --tab-active-text: #186BCC;
+            --tab-active-bg: rgba(24, 107, 204, 0.08);
+            --tab-active-border: rgba(24, 107, 204, 0.18);
         }
 
         * {
@@ -77,11 +84,10 @@
             color: var(--text-main);
             line-height: 1.5;
             padding-bottom: 100px;
-            transition: background-color var(--transition), color var(--transition);
         }
 
         .wrapper {
-            max-width: 1200px;
+            max-width: 1320px;
             margin: 0 auto;
             padding: 0 40px;
         }
@@ -121,14 +127,34 @@
         }
 
         .nav-link.active {
-            color: #58a6ff;
+            color: var(--nav-active);
+        }
+
+        .theme-toggle-btn {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 5px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: inherit;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--surface);
+            border-color: rgba(24, 107, 204, 0.4);
         }
 
         /* ─── Hero ───────────────────────────────────────── */
         header {
-            padding: 80px 0 60px;
+            padding: 100px 0 80px;
             border-bottom: 1px solid var(--border);
-            background: radial-gradient(circle at 50% -20%, rgba(24, 107, 204, 0.1), transparent 70%);
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% -20%, rgba(24, 107, 204, 0.15), transparent 60%);
         }
 
         .badge {
@@ -160,7 +186,7 @@
 
         /* ─── Section ────────────────────────────────────── */
         section {
-            padding: 60px 0;
+            padding: 64px 0;
             border-bottom: 1px solid var(--border);
         }
 
@@ -209,7 +235,7 @@
         }
 
         .variant-group {
-            background: var(--surface);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 24px;
@@ -274,6 +300,7 @@
         .app-button.icon-only {
             padding: 0;
             width: unset;
+            /* will be set by JS or specific class if needed */
         }
 
         .app-button.large.icon-only {
@@ -296,6 +323,7 @@
 
         .app-button.primary.pressed {
             background-color: var(--blue-1300);
+            /* surfacePrimaryDark */
         }
 
         /* Secondary Variant */
@@ -307,6 +335,7 @@
 
         .app-button.secondary.pressed {
             background-color: rgba(24, 107, 204, 0.12);
+            /* surfacePrimaryLight with opacity */
         }
 
         /* Neutral Variant */
@@ -323,6 +352,7 @@
         /* Destructive Variant */
         .app-button.destructive {
             background-color: #FEE2E2;
+            /* red100 equivalent */
             color: var(--text-error);
             border: none;
         }
@@ -338,6 +368,10 @@
             text-decoration: underline;
         }
 
+        .app-button.link.pressed {
+            background-color: rgba(24, 107, 204, 0.12);
+        }
+
         /* States */
         .app-button.disabled {
             cursor: not-allowed;
@@ -348,18 +382,70 @@
             text-decoration: none !important;
         }
 
+        .app-button.primary.disabled {
+            background-color: var(--neutral-100);
+            opacity: 0.15;
+        }
+
+        /* Loading Spinner Mock */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        .app-button.loading .spinner {
+            display: block;
+        }
+
+        .app-button.loading .icon,
+        .app-button.loading span {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ─── Code Snippets ──────────────────────────────── */
+        .code-block {
+            background: #010409;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 12px;
+            color: #d1d5db;
+            margin-top: 16px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        .token-tag {
+            font-size: 10px;
+            font-weight: 700;
+            color: #8b949e;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
         /* ─── TextField Implementation (MIMIC DART) ────── */
         .app-text-field-group {
             display: flex;
             flex-direction: column;
-            gap: var(--space-06);
+            gap: var(--space-06, 6px);
             width: 100%;
         }
 
         .app-text-label {
             font-size: 14px;
             font-weight: 500;
-            color: var(--text-main);
+            color: var(--neutral-1000);
         }
 
         .app-text-field-container {
@@ -369,7 +455,7 @@
             border: 1px solid var(--neutral-400);
             border-radius: var(--radius-08);
             padding: 0 var(--space-12);
-            background-color: var(--surface);
+            background-color: var(--white);
             transition: all var(--transition);
             gap: var(--space-08);
         }
@@ -388,21 +474,55 @@
             background: transparent;
             font-family: inherit;
             font-size: 14px;
-            color: var(--text-main);
+            color: var(--neutral-1000);
             height: 100%;
+        }
+
+        .app-text-field-container input::placeholder {
+            color: var(--neutral-400);
         }
 
         .app-text-helper {
             font-size: 12px;
-            color: var(--text-secondary);
+            color: var(--neutral-700);
         }
 
+        /* States */
         .app-text-field-group.error .app-text-field-container {
             border-color: var(--border-error);
         }
 
+        .app-text-field-group.error .app-text-helper {
+            color: var(--text-error);
+        }
+
         .app-text-field-group.disabled {
             opacity: 0.5;
+        }
+
+        .app-text-field-group.disabled .app-text-field-container {
+            background-color: var(--neutral-100);
+            cursor: not-allowed;
+        }
+
+        .app-text-field-group.disabled input {
+            cursor: not-allowed;
+        }
+
+        .app-text-icon {
+            color: var(--neutral-700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .app-text-field-container:focus-within .app-text-icon {
+            color: var(--border-primary);
+        }
+
+        .app-text-field-group.error .app-text-icon {
+            color: var(--text-error);
         }
     </style>
 </head>
@@ -411,13 +531,13 @@
     <nav class="top-nav">
         <div class="wrapper">
             <div style="font-weight: 700; letter-spacing: -0.02em;">Sales App <span
-                    style="color: var(--text-secondary)">DS</span></div>
+                    style="color: var(--text-muted)">DS</span></div>
             <div style="display: flex; align-items: center; gap: 32px;">
                 <div class="nav-links">
                     <a href="design_system.html" class="nav-link">Foundation</a>
                     <a href="component_showcase.html" class="nav-link active">Components</a>
                 </div>
-                <button id="theme-toggle" class="app-button secondary small" onclick="toggleTheme()" style="min-width: 100px;">
+                <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()">
                     <span id="theme-btn-text">Light Mode</span>
                 </button>
             </div>
@@ -427,12 +547,20 @@
         <div class="wrapper">
             <div class="badge">Sales App Components</div>
             <h1>Component Showcase</h1>
-            <p>Interactive verification of Flutter components implemented via design tokens.</p>
+            <p>Interactive verification of Flutter components implemented via design tokens. All spacing, colors, and
+                types
+                are synced with the foundation primitives.</p>
         </div>
     </header>
 
     <div class="wrapper">
         <section id="buttons">
+            <div class="section-header">
+                <h2 class="section-title">Button</h2>
+                <p class="section-desc">The primary action component supporting multiple variants, sizes, and states.
+                </p>
+            </div>
+
             <div class="controls">
                 <div class="control-item">
                     <input type="checkbox" id="toggle-disabled" onchange="updateStates()">
@@ -449,23 +577,311 @@
             </div>
 
             <div class="component-grid">
-                <!-- Example Variant -->
+                <!-- Primary -->
                 <div class="variant-group">
                     <div class="variant-header">
                         <span class="variant-name">Primary</span>
+                        <span class="token-tag">surfacePrimaryDefault</span>
                     </div>
                     <div class="variant-display">
-                        <button class="app-button primary medium">Medium Primary</button>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button primary large">
+                                <div class="spinner"></div><span>Large Primary</span>
+                            </button>
+                            <button class="app-button primary large icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button primary medium">
+                                <div class="spinner"></div><span>Medium Primary</span>
+                            </button>
+                            <button class="app-button primary medium icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button primary small">
+                                <div class="spinner"></div><span>Small Primary</span>
+                            </button>
+                            <button class="app-button primary small icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.primary</div>
+                </div>
+
+                <!-- Secondary -->
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <span class="variant-name">Secondary</span>
+                        <span class="token-tag">borderPrimaryDefault</span>
+                    </div>
+                    <div class="variant-display">
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button secondary large">
+                                <div class="spinner"></div><span>Large Secondary</span>
+                            </button>
+                            <button class="app-button secondary large icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button secondary medium">
+                                <div class="spinner"></div><span>Medium Secondary</span>
+                            </button>
+                            <button class="app-button secondary medium icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button secondary small">
+                                <div class="spinner"></div><span>Small Secondary</span>
+                            </button>
+                            <button class="app-button secondary small icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.secondary</div>
+                </div>
+
+                <!-- Neutral -->
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <span class="variant-name">Neutral</span>
+                        <span class="token-tag">borderGraySecondary</span>
+                    </div>
+                    <div class="variant-display">
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button neutral large">
+                                <div class="spinner"></div><span>Large Neutral</span>
+                            </button>
+                            <button class="app-button neutral large icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button neutral medium">
+                                <div class="spinner"></div><span>Medium Neutral</span>
+                            </button>
+                            <button class="app-button neutral medium icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <button class="app-button neutral small">
+                                <div class="spinner"></div><span>Small Neutral</span>
+                            </button>
+                            <button class="app-button neutral small icon-only">
+                                <div class="spinner"></div><span>→</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.neutral</div>
+                </div>
+
+                <!-- Destructive -->
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <span class="variant-name">Destructive</span>
+                        <span class="token-tag">surfaceErrorLight</span>
+                    </div>
+                    <div class="variant-display">
+                        <button class="app-button destructive large">
+                            <div class="spinner"></div><span>Large Destructive</span>
+                        </button>
+                        <button class="app-button destructive medium">
+                            <div class="spinner"></div><span>Medium Destructive</span>
+                        </button>
+                        <button class="app-button destructive small">
+                            <div class="spinner"></div><span>Small Destructive</span>
+                        </button>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.destructive</div>
+                </div>
+
+                <!-- Link -->
+                <div class="variant-group">
+                    <div class="variant-header">
+                        <span class="variant-name">Link</span>
+                        <span class="token-tag">textPrimaryDefault</span>
+                    </div>
+                    <div class="variant-display">
+                        <button class="app-button link large">
+                            <div class="spinner"></div><span>Large Link</span>
+                        </button>
+                        <button class="app-button link medium">
+                            <div class="spinner"></div><span>Medium Link</span>
+                        </button>
+                        <button class="app-button link small">
+                            <div class="spinner"></div><span>Small Link</span>
+                        </button>
+                    </div>
+                    <div class="code-block">variant: AppButtonVariant.link</div>
+                </div>
+            </div>
+    </div>
+    </section>
+
+    <section id="textfields">
+        <div class="wrapper">
+            <div class="section-header">
+                <h2 class="section-title">TextField</h2>
+                <p class="section-desc">Interactive input components showcasing various configurations and the
+                    verification pattern.</p>
+            </div>
+
+            <div class="component-grid">
+                <!-- Row 1: Basic & Error -->
+                <div class="variant-group">
+                    <div class="variant-display" style="width: 100%;">
+                        <div class="app-text-field-group">
+                            <label class="app-text-label">Email Address</label>
+                            <div class="app-text-field-container">
+                                <input type="text" placeholder="Enter your email">
+                            </div>
+                        </div>
+
+                        <div class="app-text-field-group error" data-permanent-error="true">
+                            <label class="app-text-label">Password</label>
+                            <div class="app-text-field-container">
+                                <input type="password" value="wrongpassword">
+                            </div>
+                            <span class="app-text-helper">Incorrect password. Please try again.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Verification Pattern -->
+                <div class="variant-group">
+                    <div class="variant-display" style="width: 100%;">
+                        <div class="app-text-field-group" id="verify-field-group">
+                            <label class="app-text-label">Personal ID</label>
+                            <div class="app-text-field-container">
+                                <input type="text" id="verify-input" placeholder="e.g. 123-456-789"
+                                    oninput="toggleVerifyBtn()">
+                                <!-- Trailing Action / Icon -->
+                                <div id="verify-action" style="display: flex; align-items:center;">
+                                    <span id="btn-verify" class="verify-btn" onclick="verifyData()"
+                                        style="display: none;">Verify</span>
+                                    <span id="icon-success" class="app-text-icon"
+                                        style="color: #059669; display: none;">✓</span>
+                                </div>
+                            </div>
+                            <span class="app-text-helper" id="verify-helper">Enter your ID to verify.</span>
+                        </div>
+
+                        <div class="app-text-field-group">
+                            <label class="app-text-label">Search</label>
+                            <div class="app-text-field-container">
+                                <span class="app-text-icon">🔍</span>
+                                <input type="text" placeholder="Search projects...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3: Specialized -->
+                <div class="variant-group">
+                    <div class="variant-display" style="width: 100%;">
+                        <div class="app-text-field-group disabled">
+                            <label class="app-text-label">Account ID (Disabled)</label>
+                            <div class="app-text-field-container">
+                                <input type="text" value="ACC-12345-XYZ" disabled>
+                            </div>
+                        </div>
+
+                        <div class="app-text-field-group" id="mobile-field-group">
+                            <label class="app-text-label">Mobile Number</label>
+                            <div class="app-text-field-container">
+                                <input type="tel" id="mobile-input" placeholder="+91 00000 00000"
+                                    oninput="toggleMobileVerifyBtn()">
+                                <div style="display: flex; align-items:center;">
+                                    <span id="btn-mobile-verify" class="verify-btn" onclick="verifyMobile()"
+                                        style="display: none;">Verify</span>
+                                    <span id="icon-mobile-success" class="app-text-icon"
+                                        style="color: #059669; display: none;">✓</span>
+                                </div>
+                            </div>
+                            <span class="app-text-helper" id="mobile-helper">Check your mobile for OTP after
+                                verifying.</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
     </div>
+
+    <style>
+        .verify-btn {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--blue-1100);
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .verify-btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+
+    <script>
+        function toggleVerifyBtn() {
+            const input = document.getElementById('verify-input');
+            const btn = document.getElementById('btn-verify');
+            const icon = document.getElementById('icon-success');
+
+            if (input.value.length > 0 && icon.style.display === 'none') {
+                btn.style.display = 'block';
+            } else {
+                btn.style.display = 'none';
+            }
+        }
+
+        function verifyData() {
+            const btn = document.getElementById('btn-verify');
+            const icon = document.getElementById('icon-success');
+            const helper = document.getElementById('verify-helper');
+
+            btn.style.display = 'none';
+            icon.style.display = 'block';
+            helper.textContent = 'ID verified successfully.';
+            helper.style.color = '#059669';
+        }
+
+        function toggleMobileVerifyBtn() {
+            const input = document.getElementById('mobile-input');
+            const btn = document.getElementById('btn-mobile-verify');
+            const icon = document.getElementById('icon-mobile-success');
+
+            if (input.value.trim().length >= 10 && icon.style.display === 'none') {
+                btn.style.display = 'block';
+            } else {
+                btn.style.display = 'none';
+            }
+        }
+
+        function verifyMobile() {
+            const btn = document.getElementById('btn-mobile-verify');
+            const icon = document.getElementById('icon-mobile-success');
+            const helper = document.getElementById('mobile-helper');
+
+            btn.style.display = 'none';
+            icon.style.display = 'block';
+            helper.textContent = 'OTP Sent to Mobile.';
+            helper.style.color = '#059669';
+        }
+    </script>
 
     <script>
         function toggleTheme() {
             const body = document.body;
             const btnText = document.getElementById('theme-btn-text');
+
             if (body.classList.contains('light-mode')) {
                 body.classList.remove('light-mode');
                 btnText.textContent = 'Light Mode';
@@ -476,7 +892,9 @@
                 localStorage.setItem('theme', 'light');
             }
         }
-        (function() {
+
+        // Initialize theme
+        (function () {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'light') {
                 document.body.classList.add('light-mode');
@@ -484,11 +902,37 @@
                 if (btnText) btnText.textContent = 'Dark Mode';
             }
         })();
+
         function updateStates() {
             const isDisabled = document.getElementById('toggle-disabled').checked;
-            document.querySelectorAll('.app-button').forEach(btn => {
+            const isPressed = document.getElementById('toggle-pressed').checked;
+            const isLoading = document.getElementById('toggle-loading').checked;
+
+            // Update Buttons
+            const buttons = document.querySelectorAll('.app-button');
+            buttons.forEach(btn => {
                 if (isDisabled) btn.classList.add('disabled');
                 else btn.classList.remove('disabled');
+
+                if (isPressed) btn.classList.add('pressed');
+                else btn.classList.remove('pressed');
+
+                if (isLoading) btn.classList.add('loading');
+                else btn.classList.remove('loading');
+            });
+
+            // Update TextFields
+            const textFields = document.querySelectorAll('.app-text-field-group');
+            textFields.forEach(field => {
+                if (isDisabled) field.classList.add('disabled');
+                else field.classList.remove('disabled');
+
+                // We'll use the "pressed" toggle to simulate an error state for quick visualization
+                // Or I can add a dedicated checkbox if needed, but this is a quick shortcut.
+                if (isPressed) field.classList.add('error');
+                else if (!field.getAttribute('data-permanent-error')) {
+                    field.classList.remove('error');
+                }
             });
         }
     </script>
