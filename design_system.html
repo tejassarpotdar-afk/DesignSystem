@@ -11,14 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* ─── Reset & Base ─────────────────────────────────── */
     *,
     *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --font: 'Figtree', sans-serif;
@@ -177,7 +172,7 @@
       transition: all var(--transition);
       text-decoration: none;
     }
-    .tab-btn:hover { color: var(--text-primary); background: var(--surface-2); }
+    .tab-btn:hover { color: var(--text-primary); }
     .tab-btn.active { color: var(--tab-active-text); background: var(--tab-active-bg); border-color: var(--tab-active-border); }
 
     section { padding: 64px 0; border-bottom: 1px solid var(--border); }
@@ -213,7 +208,25 @@
     }
     .copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    .semantic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    /* ─── Semantic Color Cards ───────────────────── */
+    .semantic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 900px) { .semantic-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px)  { .semantic-grid { grid-template-columns: 1fr; } }
+
+    .semantic-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-width: 0;
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .semantic-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
 
     .type-table { width: 100%; border-collapse: collapse; }
     .type-table th { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); text-align: left; padding: 0 16px 12px; border-bottom: 1px solid var(--border); }
@@ -247,11 +260,11 @@
     footer span { color: var(--text-secondary); }
 
     .opacity-scale { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 12px; }
-    .opacity-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; transition: all var(--transition); position: relative; overflow: hidden; }
+    .opacity-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; transition: all var(--transition); overflow: hidden; }
     .opacity-card:hover { background: var(--surface-2); border-color: rgba(24,107,204,0.3); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
     .opacity-card-box { height: 60px; border-radius: 8px; margin-bottom: 16px; position: relative; overflow: hidden; background: linear-gradient(45deg,#2a2c35 25%,transparent 25%), linear-gradient(-45deg,#2a2c35 25%,transparent 25%), linear-gradient(45deg,transparent 75%,#2a2c35 75%), linear-gradient(-45deg,transparent 75%,#2a2c35 75%), #1d1f27; background-size: 12px 12px; background-position: 0 0,0 6px,6px -6px,-6px 0px; border: 1px solid rgba(255,255,255,0.05); }
     .opacity-card-fill { position: absolute; inset: 0; background: #6AB5FF; transition: opacity 0.3s ease; }
-    .opacity-card-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+    .opacity-card-name { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
     .opacity-card-val { font-size: 20px; font-weight: 700; color: var(--text-primary); margin-top: 8px; }
 
     .spacing-scale { display: flex; flex-direction: column; gap: 10px; }
@@ -259,7 +272,7 @@
     .spacing-row:hover { background: rgba(255,255,255,0.02); }
     .spacing-token { font-size: 12px; font-family: 'SF Mono','Fira Code',monospace; color: #6AB5FF; background: rgba(24,107,204,0.1); padding: 3px 8px; border-radius: 4px; text-align: center; }
     .spacing-bar-wrap { height: 28px; display: flex; align-items: center; }
-    .spacing-bar { height: 28px; border-radius: 6px; background: linear-gradient(90deg,rgba(24,107,204,0.55),rgba(106,181,255,0.35)); border: 1px solid rgba(106,181,255,0.2); min-width: 4px; transition: opacity var(--transition); }
+    .spacing-bar { height: 28px; border-radius: 6px; background: linear-gradient(90deg,rgba(24,107,204,0.55),rgba(106,181,255,0.35)); border: 1px solid rgba(106,181,255,0.2); min-width: 4px; }
     .spacing-val { font-size: 12px; color: var(--text-secondary); font-family: 'SF Mono',monospace; text-align: right; }
 
     .space-semantic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
@@ -374,7 +387,7 @@
       <div class="type-visual-grid" id="heading-visual"></div>
       <div class="divider-line"></div>
       <div class="subsection-label">Heading Tokens — Full Spec</div>
-      <table class="type-table" id="heading-table">
+      <table class="type-table">
         <thead><tr><th>Token</th><th>Preview</th><th>Size / LH</th><th>Weight</th></tr></thead>
         <tbody id="heading-table-body"></tbody>
       </table>
@@ -383,7 +396,7 @@
       <div class="type-visual-grid" id="body-visual"></div>
       <div class="divider-line"></div>
       <div class="subsection-label">Body Tokens — Full Spec</div>
-      <table class="type-table" id="body-table">
+      <table class="type-table">
         <thead><tr><th>Token</th><th>Preview</th><th>Size / LH</th><th>Weight</th></tr></thead>
         <tbody id="body-table-body"></tbody>
       </table>
@@ -573,10 +586,7 @@
       {token:'opacity12',pct:100,val:1.00},
     ];
 
-    function isLight(hex) {
-      const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
-      return (r*299+g*587+b*114)/1000>160;
-    }
+    function isLight(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return(r*299+g*587+b*114)/1000>160;}
     function weightLabel(w){return{400:'Regular',500:'Medium',600:'Semibold',700:'Bold'}[w]||w;}
     function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
     function copyHex(hex){navigator.clipboard.writeText(hex).then(()=>showToast('✓ Copied '+hex));}
@@ -599,8 +609,14 @@
       tokens.forEach(t=>{
         const card=document.createElement('div');
         card.className='semantic-card';
-        card.style.cssText='display:flex;align-items:center;gap:16px;background:var(--surface);border:1px solid var(--border);padding:12px;border-radius:12px;cursor:pointer';
-        card.innerHTML=`<div style="width:48px;height:48px;border-radius:8px;background:${t.hex};border:1px solid rgba(255,255,255,0.05);flex-shrink:0"></div><div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--text-primary)">${t.name}</div><div style="font-size:11px;font-family:'SF Mono',monospace;color:var(--text-muted);margin-top:2px">${t.token}</div></div><div style="text-align:right"><div style="font-size:11px;font-weight:700;color:#6AB5FF;opacity:0.8">${t.alias}</div><div style="font-size:10px;font-family:'SF Mono',monospace;color:var(--text-muted)">${t.hex}</div></div>`;
+        card.style.cssText='display:flex;align-items:center;gap:12px;padding:12px';
+        card.innerHTML=`
+          <div style="width:44px;height:44px;border-radius:8px;background:${t.hex};border:1px solid rgba(255,255,255,0.05);flex-shrink:0"></div>
+          <div style="flex:1;min-width:0;overflow:hidden">
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</div>
+            <div style="font-size:10px;font-family:'SF Mono',monospace;color:var(--text-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.token}</div>
+            <div style="font-size:10px;font-family:'SF Mono',monospace;color:#6AB5FF;opacity:0.8;margin-top:1px">${t.hex}</div>
+          </div>`;
         card.addEventListener('click',()=>copyHex(t.hex));
         container.appendChild(card);
       });
@@ -654,7 +670,7 @@
         const radiusPreview=t.value>=9999?'9999':t.value;
         const card=document.createElement('div');
         card.className='space-card';
-        card.innerHTML=`<div class="space-card-preview" style="height:80px;padding:0"><div class="space-card-inner" style="width:48px;height:48px;border-radius:${radiusPreview}px;padding:0"></div></div><div class="space-card-name">${t.token}</div><div class="space-card-val">${displayVal}<span class="space-card-unit"> dp</span></div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">${t.desc}</div>`;
+        card.innerHTML=`<div class="space-card-preview" style="height:80px;padding:0"><div class="space-card-inner" style="width:48px;height:48px;border-radius:${radiusPreview}px"></div></div><div class="space-card-name">${t.token}</div><div class="space-card-val">${displayVal}<span class="space-card-unit"> dp</span></div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">${t.desc}</div>`;
         container.appendChild(card);
       });
     }
