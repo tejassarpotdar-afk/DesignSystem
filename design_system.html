@@ -615,7 +615,7 @@
           <div style="flex:1;min-width:0;overflow:hidden">
             <div style="font-size:13px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</div>
             <div style="font-size:10px;font-family:'SF Mono',monospace;color:var(--text-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.token}</div>
-            <div style="font-size:10px;font-family:'SF Mono',monospace;color:#6AB5FF;opacity:0.8;margin-top:1px">${t.hex}</div>
+            <div style="font-size:10px;font-family:'SF Mono',monospace;color:#6AB5FF;opacity:0.8;margin-top:1px">${t.alias}</div>
           </div>`;
         card.addEventListener('click',()=>copyHex(t.hex));
         container.appendChild(card);
